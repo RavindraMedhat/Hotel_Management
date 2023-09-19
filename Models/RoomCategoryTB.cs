@@ -7,5 +7,6 @@ namespace Hotel_Management.Models
 {
     public class RoomCategoryTB
     {
+      int I;
     }
 }
