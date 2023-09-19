@@ -1,0 +1,101 @@
+﻿@model IEnumerable<Hotel_Management.Models.HotelBranchTB>
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+<h1>Index</h1>
+
+<p>
+    <a asp-action="Create">Create New</a>
+</p>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.Hotel_ID)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Branch_Name)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Branch_Description)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Branch_Images)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Branch_map_coordinate)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Branch_Address)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Branch_Contact_No)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Branch_Email_Adderss)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Branch_Contect_Person)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Active_Flag)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Delete_Flag)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Priority)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Hotel_ID)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Branch_Name)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Branch_Description)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Branch_Images)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Branch_map_coordinate)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Branch_Address)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Branch_Contact_No)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Branch_Email_Adderss)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Branch_Contect_Person)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Active_Flag)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Delete_Flag)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Priority)
+            </td>
+            <td>
+                <a asp-action="Edit" asp-route-id="@item.Branch_ID">Edit</a> |
+                <a asp-action="Details" asp-route-id="@item.Branch_ID">Details</a> |
+                <a asp-action="Delete" asp-route-id="@item.Branch_ID">Delete</a>
+            </td>
+        </tr>
+}
+    </tbody>
+</table>
