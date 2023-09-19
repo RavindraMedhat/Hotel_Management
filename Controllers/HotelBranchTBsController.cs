@@ -53,7 +53,7 @@ namespace Hotel_Management.Controllers
         // more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("Branch_ID,Hotel_ID,Branch_Name,Branch_Description,Branch_Images,Branch_map_coordinate,Branch_Address,Branch_Contact_No,Branch_Email_Adderss,Branch_Contect_Person,Active_Flag,Delete_Flag,Priority")] HotelBranchTB hotelBranchTB)
+        public async Task<IActionResult> Create([Bind("Branch_ID,Hotel_ID,Branch_Name,Branch_Description,Branch_map_coordinate,Branch_Address,Branch_Contact_No,Branch_Email_Adderss,Branch_Contect_Person,Active_Flag,Delete_Flag,Priority")] HotelBranchTB hotelBranchTB)
         {
             if (ModelState.IsValid)
             {
@@ -85,7 +85,7 @@ namespace Hotel_Management.Controllers
         // more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("Branch_ID,Hotel_ID,Branch_Name,Branch_Description,Branch_Images,Branch_map_coordinate,Branch_Address,Branch_Contact_No,Branch_Email_Adderss,Branch_Contect_Person,Active_Flag,Delete_Flag,Priority")] HotelBranchTB hotelBranchTB)
+        public async Task<IActionResult> Edit(int id, [Bind("Branch_ID,Hotel_ID,Branch_Name,Branch_Description,Branch_map_coordinate,Branch_Address,Branch_Contact_No,Branch_Email_Adderss,Branch_Contect_Person,Active_Flag,Delete_Flag,Priority")] HotelBranchTB hotelBranchTB)
         {
             if (id != hotelBranchTB.Branch_ID)
             {

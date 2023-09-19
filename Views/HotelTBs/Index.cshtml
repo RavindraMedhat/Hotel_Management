@@ -2,6 +2,7 @@
 
 @{
     ViewData["Title"] = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
 <h1>Index</h1>
@@ -17,9 +18,6 @@
             </th>
             <th>
                 @Html.DisplayNameFor(model => model.Hotel_Description)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Hotel_Images)
             </th>
             <th>
                 @Html.DisplayNameFor(model => model.Hotel_map_coordinate)
@@ -62,9 +60,6 @@
             </td>
             <td>
                 @Html.DisplayFor(modelItem => item.Hotel_Description)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Hotel_Images)
             </td>
             <td>
                 @Html.DisplayFor(modelItem => item.Hotel_map_coordinate)

@@ -2,6 +2,7 @@
 
 @{
     ViewData["Title"] = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
 <h1>Index</h1>
@@ -20,9 +21,6 @@
             </th>
             <th>
                 @Html.DisplayNameFor(model => model.Branch_Description)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Branch_Images)
             </th>
             <th>
                 @Html.DisplayNameFor(model => model.Branch_map_coordinate)
@@ -62,9 +60,6 @@
             </td>
             <td>
                 @Html.DisplayFor(modelItem => item.Branch_Description)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Branch_Images)
             </td>
             <td>
                 @Html.DisplayFor(modelItem => item.Branch_map_coordinate)

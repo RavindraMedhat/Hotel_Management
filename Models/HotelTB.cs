@@ -20,8 +20,8 @@ namespace Hotel_Management.Models
         public string Hotel_Description { get; set; }
 
         //config che bro
-        [Required]
-        public string Hotel_Images { get; set; }
+        //[Required]
+        //public string Hotel_Images { get; set; }
 
         [Required]
         public string Hotel_map_coordinate { get; set; }

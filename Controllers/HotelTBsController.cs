@@ -53,7 +53,7 @@ namespace Hotel_Management.Controllers
         // more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("Hotel_ID,Hotel_Name,Hotel_Description,Hotel_Images,Hotel_map_coordinate,Address,Contact_No,Email_Adderss,Contect_Person,Standard_check_In_Time,Standard_check_out_Time,Active_Flag,Delete_Flag,Priority")] HotelTB hotelTB)
+        public async Task<IActionResult> Create([Bind("Hotel_ID,Hotel_Name,Hotel_Description,Hotel_map_coordinate,Address,Contact_No,Email_Adderss,Contect_Person,Standard_check_In_Time,Standard_check_out_Time,Active_Flag,Delete_Flag,Priority")] HotelTB hotelTB)
         {
             if (ModelState.IsValid)
             {
@@ -85,7 +85,7 @@ namespace Hotel_Management.Controllers
         // more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("Hotel_ID,Hotel_Name,Hotel_Description,Hotel_Images,Hotel_map_coordinate,Address,Contact_No,Email_Adderss,Contect_Person,Standard_check_In_Time,Standard_check_out_Time,Active_Flag,Delete_Flag,Priority")] HotelTB hotelTB)
+        public async Task<IActionResult> Edit(int id, [Bind("Hotel_ID,Hotel_Name,Hotel_Description,Hotel_map_coordinate,Address,Contact_No,Email_Adderss,Contect_Person,Standard_check_In_Time,Standard_check_out_Time,Active_Flag,Delete_Flag,Priority")] HotelTB hotelTB)
         {
             if (id != hotelTB.Hotel_ID)
             {

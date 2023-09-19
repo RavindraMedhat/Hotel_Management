@@ -23,8 +23,8 @@ namespace Hotel_Management.Models
         public string Branch_Description { get; set; }
 
         //config che bro
-        [Required]
-        public string Branch_Images { get; set; }
+        //[Required]
+        //public string Branch_Images { get; set; }
 
         [Required]
         public string Branch_map_coordinate { get; set; }
