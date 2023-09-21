@@ -17,5 +17,7 @@ namespace Hotel_Management.Models
         public DbSet<HotelTB> Hotels { get; set; }
 
         public DbSet<Hotel_Management.Models.HotelBranchTB> HotelBranchTB { get; set; }
+
+        public DbSet<Hotel_Management.Models.ImageMasterTB> ImageMasterTB { get; set; }
     }
 }

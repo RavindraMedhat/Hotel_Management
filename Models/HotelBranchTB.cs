@@ -13,6 +13,7 @@ namespace Hotel_Management.Models
         public int Branch_ID { get; set; }
 
         [Required]
+        [ForeignKey("Hotel_ID")] 
         public int Hotel_ID { get; set; }
 
         [Required]
@@ -60,9 +61,6 @@ namespace Hotel_Management.Models
         [Required]
         public float Priority { get; set; }
 
-
-        [ForeignKey("HotelId")] 
-        public HotelTB Hotel { get; set; }
 
     }
 }
