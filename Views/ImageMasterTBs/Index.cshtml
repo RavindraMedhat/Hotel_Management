@@ -36,9 +36,11 @@
     </thead>
     <tbody>
 @foreach (var item in Model) {
+
+    var photopath = "/images/hotels/" + (item.Image_URl);
         <tr>
             <td>
-                @Html.DisplayFor(modelItem => item.Image_URl)
+               <img src="@photopath" class="card-img" height="100px" width="100px" />
             </td>
             <td>
                 @Html.DisplayFor(modelItem => item.Reference_ID)

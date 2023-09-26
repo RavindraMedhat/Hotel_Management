@@ -6,16 +6,22 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using Hotel_Management.Models;
+using Microsoft.AspNetCore.Http;
+using System.IO;
+using Microsoft.AspNetCore.Hosting;
 
 namespace Hotel_Management.Controllers
 {
     public class HotelTBsController : Controller
     {
         private readonly AppDBContext _context;
+        private readonly IHostingEnvironment _hostingEnvironment;
 
-        public HotelTBsController(AppDBContext context)
+
+        public HotelTBsController(AppDBContext context, IHostingEnvironment iHostingEnvironment)
         {
             _context = context;
+            _hostingEnvironment = iHostingEnvironment;
         }
 
         // GET: HotelTBs
@@ -53,12 +59,40 @@ namespace Hotel_Management.Controllers
         // more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("Hotel_ID,Hotel_Name,Hotel_Description,Hotel_map_coordinate,Address,Contact_No,Email_Adderss,Contect_Person,Standard_check_In_Time,Standard_check_out_Time,Active_Flag,Delete_Flag,Priority")] HotelTB hotelTB)
+        public async Task<IActionResult> Create( HotelTB hotelTB,List<IFormFile> Photos)
         {
             if (ModelState.IsValid)
             {
                 _context.Add(hotelTB);
                 await _context.SaveChangesAsync();
+                if (Photos != null && Photos.Count > 0)
+                {
+                    foreach (IFormFile photo in Photos)
+                    {
+                        String upfolder = Path.Combine(_hostingEnvironment.WebRootPath, "images/hotels");
+                        var uniqueFileName = Guid.NewGuid().ToString() + "_" + photo.FileName;
+                        String filePath = Path.Combine(upfolder, uniqueFileName);
+                        using (var filesStrime = new FileStream(filePath, FileMode.Create))
+                        {
+                            photo.CopyTo(filesStrime);
+                        }
+
+                        ImageMasterTB im = new ImageMasterTB
+                        {
+                            Image_URl = uniqueFileName,
+                            Reference_ID = hotelTB.Hotel_ID,
+                            ReferenceTB_Name = "Hotel",
+                            Active_Flag =true,
+                            Delete_Flag = false,
+                            Priority = 99
+                        };
+                        _context.Add(im);
+                        await _context.SaveChangesAsync();
+
+                    }
+
+                }
+
                 return RedirectToAction(nameof(Index));
             }
             return View(hotelTB);

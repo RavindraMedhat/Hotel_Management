@@ -6,16 +6,23 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using Hotel_Management.Models;
+using Hotel_Management.ViewModels;
+using System.IO;
+using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.Http;
 
 namespace Hotel_Management.Controllers
 {
     public class ImageMasterTBsController : Controller
     {
         private readonly AppDBContext _context;
+        private readonly IHostingEnvironment _IHostingEnvironment;
 
-        public ImageMasterTBsController(AppDBContext context)
+
+        public ImageMasterTBsController(AppDBContext context, IHostingEnvironment iHostingEnvironment)
         {
             _context = context;
+            _IHostingEnvironment= iHostingEnvironment;
         }
 
         // GET: ImageMasterTBs
@@ -53,15 +60,36 @@ namespace Hotel_Management.Controllers
         // more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("Image_ID,Image_URl,Reference_ID,ReferenceTB_Name,Active_Flag,Delete_Flag,Priority")] ImageMasterTB imageMasterTB)
+        public async Task<IActionResult> Create(ImageViewModel imageMasterViewTB)
         {
+
             if (ModelState.IsValid)
             {
-                _context.Add(imageMasterTB);
+                string uniquefilename = null;
+                if(imageMasterViewTB.Image_URl != null)
+                {
+                    string uploadsfolder = Path.Combine(_IHostingEnvironment.WebRootPath, "images/hotels");
+
+                    uniquefilename = Guid.NewGuid().ToString() + "_" + imageMasterViewTB.Reference_ID + "_" + imageMasterViewTB.Image_URl.FileName;
+                    string filepath = Path.Combine(uploadsfolder, uniquefilename);
+
+                    imageMasterViewTB.Image_URl.CopyTo(new FileStream(filepath, FileMode.Create));
+
+                }
+                ImageMasterTB im = new ImageMasterTB
+                {
+                    Image_URl = uniquefilename,
+                    Reference_ID = imageMasterViewTB.Reference_ID,
+                    ReferenceTB_Name = imageMasterViewTB.ReferenceTB_Name,
+                    Active_Flag = imageMasterViewTB.Active_Flag,
+                    Delete_Flag = imageMasterViewTB.Delete_Flag,
+                    Priority = imageMasterViewTB.Priority
+                };
+                _context.Add(im);
                 await _context.SaveChangesAsync();
-                return RedirectToAction(nameof(Index));
+                return RedirectToAction(nameof(Details),new { id = im.Image_ID});
             }
-            return View(imageMasterTB);
+            return View();
         }
 
         // GET: ImageMasterTBs/Edit/5
@@ -148,5 +176,7 @@ namespace Hotel_Management.Controllers
         {
             return _context.ImageMasterTB.Any(e => e.Image_ID == id);
         }
+
+        
     }
 }

@@ -19,6 +19,7 @@
 
   <ItemGroup>
     <Folder Include="temp\" />
+    <Folder Include="wwwroot\images\hotels\" />
   </ItemGroup>
 
 </Project>
