@@ -9,6 +9,7 @@ using Hotel_Management.Models;
 using Microsoft.AspNetCore.Http;
 using System.IO;
 using Microsoft.AspNetCore.Hosting;
+using Hotel_Management.ViewModels;
 
 namespace Hotel_Management.Controllers
 {
@@ -27,7 +28,20 @@ namespace Hotel_Management.Controllers
         // GET: HotelTBs
         public async Task<IActionResult> Index()
         {
-            return View(await _context.Hotels.ToListAsync());
+
+            List<HotelViewModelForIndex> data = (from h in await _context.Hotels.ToListAsync()
+                                                 where h.Delete_Flag == false
+                                                 select new HotelViewModelForIndex
+                                                 {
+                                                     Hotel_ID = h.Hotel_ID,
+                                                     Hotel_Name = h.Hotel_Name,
+                                                     Image_URl = (from im in  _context.ImageMasterTB
+                                                                  where h.Hotel_ID == im.Reference_ID
+                                                                  && im.ReferenceTB_Name == "Hotel"
+                                                                  select im.Image_URl).ToList()
+                                                 }).ToList();
+
+            return View(data);
         }
 
         // GET: HotelTBs/Details/5
@@ -45,7 +59,14 @@ namespace Hotel_Management.Controllers
                 return NotFound();
             }
 
-            return View(hotelTB);
+            List<string> images = (from im in _context.ImageMasterTB
+                                   where hotelTB.Hotel_ID == im.Reference_ID
+                                   && im.ReferenceTB_Name == "Hotel"
+                                   select im.Image_URl).ToList();
+            
+            ViewBag.images = images;
+
+            return View( hotelTB );
         }
 
         // GET: HotelTBs/Create
@@ -173,7 +194,7 @@ namespace Hotel_Management.Controllers
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
             var hotelTB = await _context.Hotels.FindAsync(id);
-            _context.Hotels.Remove(hotelTB);
+            hotelTB.Delete_Flag = true;
             await _context.SaveChangesAsync();
             return RedirectToAction(nameof(Index));
         }
